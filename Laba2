@@ -1,0 +1,71 @@
+package example;
+
+import java.util.Scanner;
+
+public class main {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);  //создание сканера
+        System.out.println("Введите длину последовательности:");
+        int fib = scan.nextInt();
+        int[] fibon = new int[fib];
+        fibon[0]=1;
+        fibon[1]=1;
+        for (int i=2;i<fib;i++){
+        fibon[i]=fibon[i-1]+fibon[i-2]; //Заполнение массива числами Фибоначчи
+        }
+        System.out.print("Последовательность Фибоначчи длинны "+fib+": ");
+        for (int i=0;i<=(fib-1);i++){  //Вывод массива последовательности
+            System.out.print(fibon[i]+",");
+        }
+        System.out.print("\nВсе четырехзначные числа вампиры:\n");
+        int[] numF = new int[5];  //Создание массива под цифры числа для будущего перебора
+        for(int i =1000;i<10000;i++){ //Заполнение массива
+            int figure=i;
+            numF[1]=figure/1000;
+            figure=i%1000;
+            numF[2]=figure/100;
+            figure=i%100;
+            numF[3]=figure/10;
+            figure=i%10;
+            numF[4]=figure;
+
+            //Поиск вампиров
+            if((((numF[1]*10) + numF[3]) * ((numF[2]*10) + numF[4]))==i){
+                System.out.println(i+" = "+((numF[1]*10) + numF[3])+" * "+((numF[2]*10) + numF[4]));
+            }
+            else if((((numF[1]*10) + numF[4]) * ((numF[2]*10) + numF[3]))==i){
+                System.out.println(i+" = "+((numF[1]*10) + numF[4])+" * "+((numF[2]*10) + numF[3]));
+            }
+            else if((((numF[1]*10) + numF[2]) * ((numF[3]*10) + numF[4]))==i){
+                System.out.println(i+" = "+((numF[1]*10) + numF[2])+" * "+((numF[3]*10) + numF[4]));
+            }
+            else if((((numF[1]*10) + numF[4]) * ((numF[3]*10) + numF[2]))==i){
+                System.out.println(i+" = "+((numF[1]*10) + numF[4])+" * "+((numF[3]*10) + numF[2]));
+            }
+            else if((((numF[1]*10) + numF[2]) * ((numF[4]*10) + numF[3]))==i){
+                System.out.println(i+" = "+((numF[1]*10) + numF[2])+" * "+((numF[4]*10) + numF[3]));
+            }
+            else if((((numF[1]*10) + numF[3]) * ((numF[4]*10) + numF[2]))==i){
+                System.out.println(i+" = "+((numF[1]*10) + numF[3])+" * "+((numF[4]*10) + numF[2]));
+            }
+            else if((((numF[2]*10) + numF[1]) * ((numF[3]*10) + numF[4]))==i){
+                System.out.println(i+" = "+((numF[2]*10) + numF[1])+" * "+((numF[3]*10) + numF[4]));
+            }
+            else if((((numF[2]*10) + numF[4]) * ((numF[3]*10) + numF[1]))==i){
+                System.out.println(i+" = "+((numF[2]*10) + numF[4])+" * "+((numF[3]*10) + numF[1]));
+            }
+            else if((((numF[2]*10) + numF[1]) * ((numF[4]*10) + numF[3]))==i){
+                System.out.println(i+" = "+((numF[2]*10) + numF[1])+" * "+((numF[4]*10) + numF[3]));
+            }
+            else if((((numF[2]*10) + numF[3]) * ((numF[4]*10) + numF[1]))==i){
+                System.out.println(i+" = "+((numF[2]*10) + numF[3])+" * "+((numF[4]*10) + numF[1]));
+            }
+            else if((((numF[3]*10) + numF[1]) * ((numF[4]*10) + numF[2]))==i){
+                System.out.println(i+" = "+((numF[3]*10) + numF[1])+" * "+((numF[4]*10) + numF[2]));
+            }
+            else if((((numF[3]*10) + numF[2]) * ((numF[4]*10) + numF[1]))==i){
+                System.out.println(i+" = "+((numF[3]*10) + numF[2])+" * "+((numF[4]*10) + numF[1]));
+            }
+        }
+    }
+}
