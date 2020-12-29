@@ -1,0 +1,91 @@
+import java.util.ArrayList;
+
+public class Guest {
+    private String name;
+    public Guest(String name){
+        this.name=name;
+    }
+    public String getName() {
+        return this.name;
+    }
+}
+public class Hotel {
+    private ArrayList<Room> rooms;
+    public Hotel(ArrayList<Room> rooms){
+        this.rooms = new ArrayList<Room>(rooms);
+    }
+
+    public ArrayList<Room> getRooms(){
+        return this.rooms;
+    }
+
+    public int countRooms() {
+        return this.rooms.size();
+    }
+
+    public Room getSpecificRoom(Room room){
+
+        for (int i =0; i<rooms.size(); i++){
+            if (room.getName() == rooms.get(i).getName() && room.getNumber() == rooms.get(i).getNumber()){
+                return room;
+            }
+        }
+        return null;
+    }
+    public void checkIn(Room room, ArrayList<Guest> guests) {
+        Room updateRoom = this.getSpecificRoom(room);
+        for (int i =0; i < guests.size(); i++){
+            updateRoom.addGuest(guests.get(i));
+        }
+    }
+    public void checkOut(Room room, ArrayList<Guest> guests) {
+        Room updateRoom = this.getSpecificRoom(room);
+        for (int i =0; i < guests.size(); i++){
+            updateRoom.removeGuest(guests.get(i));
+        }
+    }
+}
+public class Room {
+    private boolean isConference;
+    private String name;
+    private int number;
+    private int capacity;
+    private Boolean isSingle;
+    private ArrayList<Guest> guests;
+    public Room(boolean isConference,String name, int number, int capacity, Boolean isSingle){
+        this.isConference =isConference;
+        this.name=name;
+        this.number=number;
+        this.capacity=capacity;
+        this.isSingle=isSingle;
+        this.guests= new ArrayList<Guest>();
+    }
+    public int countGuests() {
+        return this.guests.size();
+    }
+    public boolean isaConference() {
+        return this.isConference;
+    }
+    public String getName() {
+        return this.name;
+    }
+    public int getNumber() {
+        return this.number;
+    }
+    public int getCapacity() {
+        return this.capacity;
+    }
+    public Boolean isaSingle() {
+        return this.isSingle;
+    }
+    public void addGuest(Guest guest) {
+        if (this.capacity>0 ) {
+            this.guests.add(guest);
+            this.capacity -=1;
+        }
+    }
+    public Guest removeGuest(Guest guest) {
+        this.guests.remove(guest);
+        return guest;
+    }
+}
