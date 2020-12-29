@@ -1,0 +1,97 @@
+package com.company;
+import java.util.Scanner;
+
+public class Main
+{
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        BarkVariants[] vars = BarkVariants.values();
+        for (BarkVariants s : vars) System.out.println(s);
+        Scanner S = new Scanner(System.in);
+        System.out.println("\nВыберите валюту: ");
+        Money[] typeMoney = Money.values();
+        for (Money s: typeMoney) {
+            System.out.println("\t" + s.ordinal() + " - " + s);
+        }
+        int pos = S.nextInt();
+        if (pos >= 0 & pos < 7){
+            Money var = Money.values()[pos];
+            switch(var){
+                case Ruble:
+                    System.out.print("Русский рубль!");
+                    break;
+                case Dollar:
+                    System.out.print("Самая популярная валюта");
+                    break;
+                case Euro:
+                    System.out.print("Валюта евросоюза");
+                    break;
+                case Yen:
+                    System.out.print("Денежная единица Японии");
+                    break;
+                case Yuan:
+                    System.out.print("Китайская валюта");
+                    break;
+                case Hryvnia:
+                    System.out.print("Национальная валюта Украины");
+                    break;
+                default:
+                    System.out.print("Мимо");
+                    break;
+            }
+        } else {
+            System.out.println("Нужно было ввести число от 0 до 6");
+        }
+
+    }
+}
+class Dog{
+    String name;
+    String gender;
+    int age;
+    Dog(String name, String gender, int age){     //	Конструкторы
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+    }
+    Dog(String name, String gender){
+        this(name, gender, 0);
+    }
+    Dog(String name, int age){
+        this(name,"NuN", age);
+    }
+    Dog(int age){
+        this("NuN", "NuN", age);
+    }
+    Dog(){
+        this("NuN", "NuN", 0);
+    }
+    void bark(){
+        System.out.println("Bark");
+    }
+    void bark(String s){
+        System.out.println(s);
+    }
+    void bark(BarkVariants var){
+        switch (var){
+            case KARK:
+                bark();
+                break;
+            case ARMM:
+                bark("Ndgss");
+                break;
+            case uhh:
+                bark("Ugdaq");
+                break;
+            case CCAW:
+                bark("Woooow");
+                break;
+        }
+    }
+}
+enum BarkVariants{
+    KARK, ARMM, uhh, CCAW
+}
+enum Money{
+    Dollar, Ruble, Euro, Yen, Pound, Yuan, Hryvnia;
+}
