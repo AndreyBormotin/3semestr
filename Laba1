@@ -1,0 +1,165 @@
+import java.util.Scanner;
+
+class Person{
+    String name;
+    int age;
+    String model;
+    String number;
+
+    Person(String name, int age, String model, String num){       // Конструктор с данными
+        this.name = name;
+        this.age = age;
+        this.model = model;
+        if (checkCorrectNum(num)) {
+            this.number = num;
+        } else {
+            this.number = "NuN";
+        }
+    }
+
+    Person(){                                                       // Изначальные значения
+        this("NuN", 0, "NuN", "NuN");
+    }
+
+    void changeAboutPhone(){
+        System.out.println("Изменение информации о телефоне ");
+        System.out.println("Текущий номер телефона: " + this.number);
+        System.out.print("\tЗаменить? 1 - да, 0 - нет");
+
+        Scanner S = new Scanner(System.in);
+        switch (S.nextInt()){
+            case 1:
+                this.changeNum();
+                break;
+            default:
+                break;
+        }
+        System.out.println("Старая модель телефона: " + this.model);
+        System.out.print("\tЗаменить? 1 - да, 0 - нет: ");
+        switch (S.nextInt()){
+            case 1:
+                this.changeModel();
+                break;
+            default:
+                break;
+        }
+    }
+    void changeNum(){
+        System.out.println("Изменение номера телефона"); // Изменение номера телефона
+        System.out.print("\tВведите новый номер телефона: ");
+        Scanner S = new Scanner(System.in);
+        String number = S.nextLine();
+        if (!checkCorrectNum(number)) {
+            while (!checkCorrectNum(number)) {
+                System.out.println("\tНеверный номер");
+                number = S.nextLine();
+            }
+        }
+        this.number = number;
+    }
+
+    void changeModel(){
+        System.out.println("Изменение модели телефона");                     // Замена номера телефона
+        System.out.print("\tВведите новую модель телефона: ");
+        Scanner S = new Scanner(System.in);
+        String model = S.nextLine();
+        this.model = model;
+    }
+
+    // Вывести данные
+    void displayInfo(){
+        System.out.println("Name: " + this.name + ", " + this.age + " y.o"); // Вывод данных
+        System.out.println("Model: " + this.model + ", " + this.number);
+    }
+    boolean checkCorrectNum(String phonenumber){     // Проверка номера
+        if (phonenumber.length() != 12) {
+            return false;
+        } else if (phonenumber.indexOf("+7") == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+class Main{
+    public static void main(String[] args) {
+        int number = 0;
+        Scanner Scan = new Scanner(System.in);
+        System.out.print("Количество пользователей: "); //Ввод количества пользователей
+        number = Scan.nextInt();
+
+        Person[] persons = new Person[number];          //Добавление пользователей
+        String phonenumber;
+
+        for (int i = 0; i < number; i++){
+        System.out.println("Данные для " + (i+1) + " пользователя");
+        Scanner S = new Scanner(System.in);
+        persons[i] = new Person();
+
+        System.out.print("Введите имя пользователя: ");        // Ввод имени
+        persons[i].name = S.nextLine();
+
+        System.out.print("Введите возраст пользователя: ");    // Ввод возраста
+        persons[i].age = S.nextInt();
+
+        System.out.print("Введите модель телефона: ");         // Ввод модели телефона
+        S = new Scanner(System.in);
+        persons[i].model = S.nextLine();
+
+        S = new Scanner(System.in);
+
+        System.out.print("Введите номер телефона: ");       // Ввод номера телефона с проверкой
+        while (!S.hasNext()){}
+
+            phonenumber = S.nextLine();
+            if (persons[i].checkCorrectNum(phonenumber)) {
+                persons[i].number = phonenumber;
+            } else {
+                while (!persons[i].checkCorrectNum(phonenumber)){
+                System.out.print("Неверный номер телефона, попробуйте еще раз: ");
+                while (!S.hasNext())
+
+                phonenumber = S.nextLine();
+                }
+                persons[i].number = phonenumber;
+            }
+            System.out.println(" Пользователь с именем " + persons[i].name + " добавлен!");
+        }
+
+        Scanner S = new Scanner(System.in);
+        int var = 1;
+        do {
+        System.out.println("Что вы хотите сделать?");
+        System.out.println("\t1 Узнать информацию о пользователях");
+        System.out.println("\t2 Узнать информацию о количестве пользователей");
+        System.out.println("\t3 Отредактировать номер телефона пользователя");
+        System.out.print("Введите цифру или 0 для выхода ");
+        var = S.nextInt();
+
+       switch (var) {
+       case 0:
+       return;
+       case 1:      // Вывод информации о пользователях
+       for (int i = 0; i < number; i++) {
+       persons[i].displayInfo();
+       }
+       break;
+       case 2:  // Информация о количестве пользователей
+       System.out.println("Кол-во пользователей: " + number);
+       break;
+       case 3: //  Замена номера телефона
+       System.out.println("Выберите пользователя");
+       for (int i = 0; i < number; i++) {
+       System.out.println("\t" + (i + 1) + ") " + persons[i].name + ", номер телефона: " + persons[i].number);
+       }
+       System.out.println("Введите цифру или 0 для выхода");
+       var = S.nextInt();
+       persons[var - 1].changeAboutPhone();
+       break;
+       default:
+           break;
+       }
+       } while (var != 0);
+    }
+}
